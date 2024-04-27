@@ -47,7 +47,7 @@ for file_name in files:
     # Check if the file is a regular file (not a directory)
     if os.path.isfile(os.path.join(source_dir, file_name)):
          # Split the file name into words
-        words_in_filename = file_name.split()
+        words_in_filename = file_name.split('-')
         # count the number of branch in file name
         branch_count= 0
         for word in words_in_filename:
@@ -67,7 +67,7 @@ for file_name in files:
         if branch_count ==1:
             # Branch To FAT
             if len(numbers_in_file_name) ==3:
-                new_dir = os.path.join(branch_to_fat_dir, f"Br {numbers_in_file_name[0]} FAT {numbers_in_file_name[1]}" )
+                new_dir = os.path.join(branch_to_fat_dir, f"Br {numbers_in_file_name[0]:02d} FAT {numbers_in_file_name[1]:02d}" )
                 if not os.path.exists(new_dir):
                     # If it doesn't exist, create the directory
                     os.makedirs(new_dir)
@@ -76,7 +76,7 @@ for file_name in files:
         elif branch_count ==2:
             # Branch To Branch
             if len(numbers_in_file_name) ==2:
-                new_dir = os.path.join(branch_to_branch_dir, f"Br {numbers_in_file_name[0]} Br {numbers_in_file_name[1]}" )
+                new_dir = os.path.join(branch_to_branch_dir, f"Br {numbers_in_file_name[0]:02d} Br {numbers_in_file_name[1]:02d}" )
                 if not os.path.exists(new_dir):
                     # If it doesn't exist, create the directory
                     os.makedirs(new_dir)
@@ -85,9 +85,8 @@ for file_name in files:
         else:
             # Just FAT
             if numbers_in_file_name:
-                new_dir = os.path.join(fat_dir, f"FAT {numbers_in_file_name}" )
+                new_dir = os.path.join(fat_dir, f"FAT {numbers_in_file_name:02d}" )
                 if not os.path.exists(new_dir):
                     # If it doesn't exist, create the directory
                     os.makedirs(new_dir)
                 shutil.move(os.path.join(source_dir,file_name),new_dir )
-
