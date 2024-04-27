@@ -39,6 +39,19 @@ def get_number_in_text(text_with_number ):
     matched_numbers  = re.findall(pattern, text_with_number)
     return matched_numbers
         
+# Function to check file name if it's based on this setting
+def check_file_name(file_name):
+    # chech if there is atleast two number in file name
+    numbers_in_file_name = get_number_in_text(file_name)
+    if len(numbers_in_file_name) < 2:
+        return False
+    
+    # check if format of file is jpg
+    file_extetion = file_name.split('.')[-1]
+    if not file_extetion == 'jpg' or file_extetion == 'jpeg' or file_extetion == 'png':
+        return False
+
+
 # List all files in the source directory
 files = os.listdir(source_dir)
 
@@ -46,6 +59,10 @@ files = os.listdir(source_dir)
 for file_name in files:
     # Check if the file is a regular file (not a directory)
     if os.path.isfile(os.path.join(source_dir, file_name)):
+        # check if file is a valid image
+        if not check_file_name(file_name):
+            continue
+
          # Split the file name into words
         words_in_filename = file_name.split('-')
         # count the number of branch in file name
