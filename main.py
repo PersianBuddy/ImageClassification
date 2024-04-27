@@ -61,6 +61,7 @@ for file_name in files:
     if os.path.isfile(os.path.join(source_dir, file_name)):
         # check if file is a valid image
         if not check_file_name(file_name):
+            print(f'Error: {file_name} does not chategorized!!\n\n')
             continue
 
          # Split the file name into words
@@ -88,7 +89,9 @@ for file_name in files:
                 if not os.path.exists(new_dir):
                     # If it doesn't exist, create the directory
                     os.makedirs(new_dir)
+                print(f'Moving {file_name} to {new_dir}\n')
                 shutil.move(os.path.join(source_dir,file_name),new_dir )
+                print(f'{file_name} has been moved successfully\n\n')
 
         elif branch_count ==2:
             # Branch To Branch
@@ -97,7 +100,9 @@ for file_name in files:
                 if not os.path.exists(new_dir):
                     # If it doesn't exist, create the directory
                     os.makedirs(new_dir)
+                print(f'Moving {file_name} to {new_dir}\n')
                 shutil.move(os.path.join(source_dir,file_name),new_dir )
+                print(f'{file_name} has been moved successfully\n\n')
 
         else:
             # Just FAT
@@ -106,4 +111,6 @@ for file_name in files:
                 if not os.path.exists(new_dir):
                     # If it doesn't exist, create the directory
                     os.makedirs(new_dir)
+                print(f'Moving {file_name} to {new_dir}\n')
                 shutil.move(os.path.join(source_dir,file_name),new_dir )
+                print(f'{file_name} has been moved successfully\n\n')
