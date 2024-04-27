@@ -56,7 +56,7 @@ for file_name in files:
         
         # get all numbers in file name
         numbers_in_file_name = get_number_in_text(file_name)
-        current_zone = numbers_in_file_name[0]
+        current_zone = int(numbers_in_file_name[0])
         # Writing variables for directions
         current_zone_dir = os.path.join(source_dir,f'Zone {current_zone:02d}')
         branch_to_branch_dir = os.path.join(current_zone_dir,'Branch To Branch')
@@ -67,7 +67,7 @@ for file_name in files:
         if branch_count ==1:
             # Branch To FAT
             if len(numbers_in_file_name) ==3:
-                new_dir = os.path.join(branch_to_fat_dir, f"Br {numbers_in_file_name[0]:02d} FAT {numbers_in_file_name[1]:02d}" )
+                new_dir = os.path.join(branch_to_fat_dir, f"Br {int(numbers_in_file_name[1]):02d} FAT {int(numbers_in_file_name[2]):02d}" )
                 if not os.path.exists(new_dir):
                     # If it doesn't exist, create the directory
                     os.makedirs(new_dir)
@@ -75,8 +75,8 @@ for file_name in files:
 
         elif branch_count ==2:
             # Branch To Branch
-            if len(numbers_in_file_name) ==2:
-                new_dir = os.path.join(branch_to_branch_dir, f"Br {numbers_in_file_name[0]:02d} Br {numbers_in_file_name[1]:02d}" )
+            if len(numbers_in_file_name) ==3:
+                new_dir = os.path.join(branch_to_branch_dir, f"Br {int(numbers_in_file_name[1]):02d} Br {int(numbers_in_file_name[2]):02d}" )
                 if not os.path.exists(new_dir):
                     # If it doesn't exist, create the directory
                     os.makedirs(new_dir)
@@ -85,7 +85,7 @@ for file_name in files:
         else:
             # Just FAT
             if numbers_in_file_name:
-                new_dir = os.path.join(fat_dir, f"FAT {numbers_in_file_name:02d}" )
+                new_dir = os.path.join(fat_dir, f"FAT {int(numbers_in_file_name[1]):02d}" )
                 if not os.path.exists(new_dir):
                     # If it doesn't exist, create the directory
                     os.makedirs(new_dir)
