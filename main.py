@@ -5,6 +5,9 @@ import re
 # Define the source and destination directories
 source_dir = os.path.join(os.path.curdir,'Sample files')
 
+# define direction variables
+
+
 
 # this function create basic direcotries for Zones
 def make_def_dir():
@@ -53,6 +56,12 @@ for file_name in files:
         
         # get all numbers in file name
         numbers_in_file_name = get_number_in_text(file_name)
+        current_zone = numbers_in_file_name[0]
+        # Writing variables for directions
+        current_zone_dir = os.path.join(source_dir,f'Zone {current_zone:02d}')
+        branch_to_branch_dir = os.path.join(current_zone_dir,'Branch To Branch')
+        branch_to_fat_dir = os.path.join(current_zone_dir,'Branch To FAT')
+        fat_dir = os.path.join(current_zone_dir,'FAT')
 
         # Create subdirecoties
         if branch_count ==1:
