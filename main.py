@@ -27,3 +27,12 @@ def make_def_dir():
             # If it doesn't exist, create the directory
             os.makedirs(fat_dir)
 
+# function that get all existing numbers in file name
+def get_number_in_text(text_with_number ):
+    # Define a regular expression pattern to match the number after the text
+    pattern = r'(\d+)'
+
+    # Search for the pattern in the string
+    matched_numbers  = re.findall(pattern, text_with_number)
+    return matched_numbers
+        
