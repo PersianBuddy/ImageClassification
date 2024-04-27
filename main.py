@@ -8,7 +8,7 @@ source_dir = os.path.join(os.path.curdir,'Sample files')
 
 # this function create basic direcotries for Zones
 def make_def_dir():
-    for i in range(1,30):
+    for i in range(1,16):
         current_zone_dir = os.path.join(source_dir,f'Zone {i:02d}')
         if not os.path.exists(current_zone_dir):
             os.makedirs(current_zone_dir)
@@ -36,3 +36,49 @@ def get_number_in_text(text_with_number ):
     matched_numbers  = re.findall(pattern, text_with_number)
     return matched_numbers
         
+# List all files in the source directory
+files = os.listdir(source_dir)
+
+# Iterate through each file
+for file_name in files:
+    # Check if the file is a regular file (not a directory)
+    if os.path.isfile(os.path.join(source_dir, file_name)):
+         # Split the file name into words
+        words_in_filename = file_name.split()
+        # count the number of branch in file name
+        branch_count= 0
+        for word in words_in_filename:
+            if 'br' in word:
+                branch_count +=1
+        
+        # get all numbers in file name
+        numbers_in_file_name = get_number_in_text(file_name)
+
+        # Create subdirecoties
+        if branch_count ==1:
+            # Branch To FAT
+            if len(numbers_in_file_name) ==3:
+                new_dir = os.path.join(branch_to_fat_dir, f"Br {numbers_in_file_name[0]} FAT {numbers_in_file_name[1]}" )
+                if not os.path.exists(new_dir):
+                    # If it doesn't exist, create the directory
+                    os.makedirs(new_dir)
+                shutil.move(os.path.join(source_dir,file_name),new_dir )
+
+        elif branch_count ==2:
+            # Branch To Branch
+            if len(numbers_in_file_name) ==2:
+                new_dir = os.path.join(branch_to_branch_dir, f"Br {numbers_in_file_name[0]} Br {numbers_in_file_name[1]}" )
+                if not os.path.exists(new_dir):
+                    # If it doesn't exist, create the directory
+                    os.makedirs(new_dir)
+                shutil.move(os.path.join(source_dir,file_name),new_dir )
+
+        else:
+            # Just FAT
+            if numbers_in_file_name:
+                new_dir = os.path.join(fat_dir, f"FAT {numbers_in_file_name}" )
+                if not os.path.exists(new_dir):
+                    # If it doesn't exist, create the directory
+                    os.makedirs(new_dir)
+                shutil.move(os.path.join(source_dir,file_name),new_dir )
+
