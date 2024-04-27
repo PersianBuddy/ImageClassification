@@ -3,9 +3,14 @@ import shutil
 import re
 
 # Define the source and destination directories
-source_dir = os.path.join(os.path.curdir,'Sample files')
-
+categorized_dir = os.path.join(os.path.abspath(os.path.pardir),'Categorized')
 # define direction variables
+# create this directory if it doesn't exist
+if os.path.exists(categorized_dir):
+    os.makedirs(categorized_dir)
+
+# get source category
+source_dir = os.path.curdir
 
 
 
@@ -50,10 +55,12 @@ def check_file_name(file_name):
     file_extetion = file_name.split('.')[-1]
     if not file_extetion == 'jpg' or file_extetion == 'jpeg' or file_extetion == 'png':
         return False
+    else:
+        return True
 
 
 # List all files in the source directory
-files = os.listdir(source_dir)
+files = os.listdir(os.path.curdir)
 
 # Iterate through each file
 for file_name in files:
@@ -76,7 +83,7 @@ for file_name in files:
         numbers_in_file_name = get_number_in_text(file_name)
         current_zone = int(numbers_in_file_name[0])
         # Writing variables for directions
-        current_zone_dir = os.path.join(source_dir,f'Zone {current_zone:02d}')
+        current_zone_dir = os.path.join(categorized_dir,f'Zone {current_zone:02d}')
         branch_to_branch_dir = os.path.join(current_zone_dir,'Branch To Branch')
         branch_to_fat_dir = os.path.join(current_zone_dir,'Branch To FAT')
         fat_dir = os.path.join(current_zone_dir,'FAT')
