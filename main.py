@@ -6,7 +6,7 @@ import re
 categorized_dir = os.path.join(os.path.abspath(os.path.pardir),'Categorized')
 # define direction variables
 # create this directory if it doesn't exist
-if os.path.exists(categorized_dir):
+if not os.path.exists(categorized_dir):
     os.makedirs(categorized_dir)
 
 # get source category
@@ -26,11 +26,16 @@ def check_file_name(file_name):
     # chech if there is atleast two number in file name
     numbers_in_file_name = get_number_in_text(file_name)
     if len(numbers_in_file_name) < 2:
+        print(f'Error: There is not enough number in {file_name}\n\n')
         return False
-    
+    elif len(numbers_in_file_name) >3:
+        print(f'Error: There are too many number in {file_name}\n\n')
+        return False
+   
     # check if format of file is jpg
     file_extetion = file_name.split('.')[-1]
-    if not file_extetion == 'jpg' or file_extetion == 'jpeg' or file_extetion == 'png':
+    if not (file_extetion == 'jpg' or file_extetion == 'jpeg' or file_extetion == 'png'):
+        print(f'Error: {file_extetion} Format in file {file_name} is not Valid!!\n\n')
         return False
     else:
         return True
@@ -45,7 +50,6 @@ for file_name in files:
     if os.path.isfile(os.path.join(source_dir, file_name)):
         # check if file is a valid image
         if not check_file_name(file_name):
-            print(f'Error: {file_name} does not chategorized!!\n\n')
             continue
 
          # Split the file name into words
@@ -68,11 +72,26 @@ for file_name in files:
         # Create subdirecoties
         if branch_count ==1:
             # Branch To FAT
-            if len(numbers_in_file_name) ==3:
-                new_dir = os.path.join(branch_to_fat_dir, f"Br {int(numbers_in_file_name[1]):02d} FAT {int(numbers_in_file_name[2]):02d}" )
-                if not os.path.exists(new_dir):
-                    # If it doesn't exist, create the directory
-                    os.makedirs(new_dir)
+            if len(numbers_in_file_name) == 3:
+                if 'odc' in file_name:
+                    if 'odc' in words_in_filename[1]:
+                        new_dir = os.path.join(branch_to_fat_dir, f"ODC {int(numbers_in_file_name[1]):02d} Branch {int(numbers_in_file_name[2]):02d}" )
+                        if not os.path.exists(new_dir):
+                            # If it doesn't exist, create the directory
+                            os.makedirs(new_dir)
+                    elif 'odc' in words_in_filename[2]:
+                        new_dir = os.path.join(branch_to_fat_dir, f"Branch {int(numbers_in_file_name[1]):02d} ODC {int(numbers_in_file_name[2]):02d}" )
+                        if not os.path.exists(new_dir):
+                            # If it doesn't exist, create the directory
+                            os.makedirs(new_dir)
+                    else:
+                        continue
+                else:
+                    new_dir = os.path.join(branch_to_fat_dir, f"Br {int(numbers_in_file_name[1]):02d} FAT {int(numbers_in_file_name[2]):02d}" )
+                    if not os.path.exists(new_dir):
+                        # If it doesn't exist, create the directory
+                        os.makedirs(new_dir)
+
                 print(f'Moving {file_name} to {new_dir}\n')
                 shutil.move(os.path.join(source_dir,file_name),new_dir )
                 print(f'{file_name} has been moved successfully\n\n')

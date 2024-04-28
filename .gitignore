@@ -1,6 +1,8 @@
 # ignore sample files folder
 /Sample Files
 /Classified
+/Categorized
+
 
 
 # Byte-compiled / optimized / DLL files
