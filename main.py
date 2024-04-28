@@ -34,7 +34,7 @@ def check_file_name(file_name):
    
     # check if format of file is jpg
     file_extetion = file_name.split('.')[-1]
-    if not (file_extetion == 'jpg' or file_extetion == 'jpeg' or file_extetion == 'png'):
+    if not (file_extetion == 'jpg' or file_extetion == 'jpeg' or file_extetion == 'png' or file_extetion == 'pdf'):
         print(f'Error: {file_extetion} Format in file {file_name} is not Valid!!\n\n')
         return False
     else:
@@ -68,6 +68,7 @@ for file_name in files:
         branch_to_branch_dir = os.path.join(current_zone_dir,'Branch To Branch')
         branch_to_fat_dir = os.path.join(current_zone_dir,'Branch To FAT')
         fat_dir = os.path.join(current_zone_dir,'FAT')
+        branch_to_odc_dir = os.path.join(current_zone_dir, 'Branch to ODC')
 
         # Create subdirecoties
         if branch_count ==1:
@@ -75,16 +76,17 @@ for file_name in files:
             if len(numbers_in_file_name) == 3:
                 if 'odc' in file_name:
                     if 'odc' in words_in_filename[1]:
-                        new_dir = os.path.join(branch_to_fat_dir, f"ODC {int(numbers_in_file_name[1]):02d} Branch {int(numbers_in_file_name[2]):02d}" )
+                        new_dir = os.path.join(branch_to_odc_dir, f"ODC {int(numbers_in_file_name[1]):02d} Branch {int(numbers_in_file_name[2]):02d}" )
                         if not os.path.exists(new_dir):
                             # If it doesn't exist, create the directory
                             os.makedirs(new_dir)
                     elif 'odc' in words_in_filename[2]:
-                        new_dir = os.path.join(branch_to_fat_dir, f"Branch {int(numbers_in_file_name[1]):02d} ODC {int(numbers_in_file_name[2]):02d}" )
+                        new_dir = os.path.join(branch_to_odc_dir, f"Branch {int(numbers_in_file_name[1]):02d} ODC {int(numbers_in_file_name[2]):02d}" )
                         if not os.path.exists(new_dir):
                             # If it doesn't exist, create the directory
                             os.makedirs(new_dir)
                     else:
+                        print(f'Error: Invalid name for file{file_name}\n\n')
                         continue
                 else:
                     new_dir = os.path.join(branch_to_fat_dir, f"Br {int(numbers_in_file_name[1]):02d} FAT {int(numbers_in_file_name[2]):02d}" )
