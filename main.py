@@ -181,6 +181,10 @@ for file_name in files:
                     new_dir = create_odc_subdirectory(file_name, words_in_filename)
                     if new_dir == '':
                         continue
+                elif 'oac' in words_in_filename[1].lower() or ('oac' in words_in_filename[2].lower()):
+                    new_dir = create_oac_subdirectory(file_name, words_in_filename)
+                    if new_dir == '':
+                        continue    
                 elif 'mtnhh' in file_name.lower() or 'mtn.hh' in file_name.lower():
                     new_dir = create_mtnhh_subdirectory(file_name, words_in_filename)
                     if new_dir == '':
