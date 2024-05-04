@@ -47,8 +47,8 @@ def check_file_name_validity(file_name):
 # Function that check "odc" in file name
 def create_odc_subdirectory(file_name,words_in_filename):
     if 'odc' in words_in_filename[1].lower():
-        reversed_dir = os.path.join(branch_to_odc_dir, f"Branch {int(numbers_in_file_name[1]):02d} ODC {int(numbers_in_file_name[2]):02d}" )
-        if os.path.exists(new_dir):
+        reversed_dir = os.path.join(branch_to_odc_dir, f"Branch {int(numbers_in_file_name[2]):02d} ODC {int(numbers_in_file_name[1]):02d}" )
+        if os.path.exists(reversed_dir):
             new_dir = reversed_dir
         else:
             new_dir = os.path.join(branch_to_odc_dir, f"ODC {int(numbers_in_file_name[1]):02d} Branch {int(numbers_in_file_name[2]):02d}" )
@@ -57,8 +57,8 @@ def create_odc_subdirectory(file_name,words_in_filename):
             os.makedirs(new_dir)
         return new_dir
     elif 'odc' in words_in_filename[2].lower():
-        reversed_dir = os.path.join(branch_to_odc_dir, f"ODC {int(numbers_in_file_name[1]):02d} Branch {int(numbers_in_file_name[2]):02d}" )
-        if os.path.exists(new_dir):
+        reversed_dir = os.path.join(branch_to_odc_dir, f"ODC {int(numbers_in_file_name[2]):02d} Branch {int(numbers_in_file_name[1]):02d}" )
+        if os.path.exists(reversed_dir):
             new_dir = reversed_dir
         else:
             new_dir = os.path.join(branch_to_odc_dir, f"Branch {int(numbers_in_file_name[1]):02d} ODC {int(numbers_in_file_name[2]):02d}" )
@@ -74,21 +74,21 @@ def create_odc_subdirectory(file_name,words_in_filename):
 # Function that check "oac" in file name
 def create_oac_subdirectory(file_name,words_in_filename):
     if 'oac' in words_in_filename[1].lower():
-        reversed_dir = os.path.join(branch_to_odc_dir, f"Branch {int(numbers_in_file_name[1]):02d} OAC {int(numbers_in_file_name[2]):02d}" )
-        if os.path.exists(new_dir):
+        reversed_dir = os.path.join(branch_to_oac_dir, f"Branch {int(numbers_in_file_name[2]):02d} OAC {int(numbers_in_file_name[1]):02d}" )
+        if os.path.exists(reversed_dir):
             new_dir = reversed_dir
         else:
-            new_dir = os.path.join(branch_to_odc_dir, f"OAC {int(numbers_in_file_name[1]):02d} Branch {int(numbers_in_file_name[2]):02d}" )
+            new_dir = os.path.join(branch_to_oac_dir, f"OAC {int(numbers_in_file_name[1]):02d} Branch {int(numbers_in_file_name[2]):02d}" )
         if not os.path.exists(new_dir):
             # If it doesn't exist, create the directory
             os.makedirs(new_dir)
         return new_dir
     elif 'oac' in words_in_filename[2].lower():
-        reversed_dir = os.path.join(branch_to_odc_dir, f"OAC {int(numbers_in_file_name[1]):02d} Branch {int(numbers_in_file_name[2]):02d}" )
-        if os.path.exists(new_dir):
+        reversed_dir = os.path.join(branch_to_oac_dir, f"OAC {int(numbers_in_file_name[2]):02d} Branch {int(numbers_in_file_name[1]):02d}" )
+        if os.path.exists(reversed_dir):
             new_dir = reversed_dir
         else:
-            new_dir = os.path.join(branch_to_odc_dir, f"Branch {int(numbers_in_file_name[1]):02d} OAC {int(numbers_in_file_name[2]):02d}" )
+            new_dir = os.path.join(branch_to_oac_dir, f"Branch {int(numbers_in_file_name[1]):02d} OAC {int(numbers_in_file_name[2]):02d}" )
         if not os.path.exists(new_dir):
             # If it doesn't exist, create the directory
             os.makedirs(new_dir)
@@ -112,7 +112,7 @@ def create_hh_subdirectory(file_name, words_in_filename):
 
 def create_mtnhh_subdirectory(file_name, words_in_filename):
     if 'mtnhh' in words_in_filename[1].lower() or 'mtn.hh' in words_in_filename[1].lower():
-        reversed_dir = os.path.join(mtn_dir, f"Branch {int(numbers_in_file_name[1]):02d} MTN {int(numbers_in_file_name[2]):02d}" )
+        reversed_dir = os.path.join(mtn_dir, f"Branch {int(numbers_in_file_name[2]):02d} MTN {int(numbers_in_file_name[1]):02d}" )
         if os.path.exists(reversed_dir):
             new_dir = reversed_dir
         else:
@@ -122,7 +122,7 @@ def create_mtnhh_subdirectory(file_name, words_in_filename):
             os.makedirs(new_dir)
         return new_dir
     elif 'mtnhh' in words_in_filename[2].lower() or 'mtn.hh' in words_in_filename[2].lower():
-        reversed_dir = os.path.join(mtn_dir, f"MTN {int(numbers_in_file_name[1]):02d} Branch {int(numbers_in_file_name[2]):02d}" )
+        reversed_dir = os.path.join(mtn_dir, f"MTN {int(numbers_in_file_name[2]):02d} Branch {int(numbers_in_file_name[1]):02d}" )
         if os.path.exists(reversed_dir):
             new_dir = reversed_dir
         else:
@@ -169,6 +169,7 @@ for file_name in files:
         branch_to_fat_dir = os.path.join(current_zone_dir,'Branch To FAT')
         fat_dir = os.path.join(current_zone_dir,'FAT')
         branch_to_odc_dir = os.path.join(current_zone_dir, 'Branch to ODC')
+        branch_to_oac_dir = os.path.join(current_zone_dir, 'Branch to OAC')
         hh_dir = os.path.join(current_zone_dir, 'HH')
         mtn_dir = os.path.join(current_zone_dir, 'MTN')
 
