@@ -71,6 +71,33 @@ def create_odc_subdirectory(file_name,words_in_filename):
         new_dir = ''
         return new_dir
 
+# Function that check "oac" in file name
+def create_oac_subdirectory(file_name,words_in_filename):
+    if 'oac' in words_in_filename[1].lower():
+        reversed_dir = os.path.join(branch_to_odc_dir, f"Branch {int(numbers_in_file_name[1]):02d} OAC {int(numbers_in_file_name[2]):02d}" )
+        if os.path.exists(new_dir):
+            new_dir = reversed_dir
+        else:
+            new_dir = os.path.join(branch_to_odc_dir, f"OAC {int(numbers_in_file_name[1]):02d} Branch {int(numbers_in_file_name[2]):02d}" )
+        if not os.path.exists(new_dir):
+            # If it doesn't exist, create the directory
+            os.makedirs(new_dir)
+        return new_dir
+    elif 'oac' in words_in_filename[2].lower():
+        reversed_dir = os.path.join(branch_to_odc_dir, f"OAC {int(numbers_in_file_name[1]):02d} Branch {int(numbers_in_file_name[2]):02d}" )
+        if os.path.exists(new_dir):
+            new_dir = reversed_dir
+        else:
+            new_dir = os.path.join(branch_to_odc_dir, f"Branch {int(numbers_in_file_name[1]):02d} OAC {int(numbers_in_file_name[2]):02d}" )
+        if not os.path.exists(new_dir):
+            # If it doesn't exist, create the directory
+            os.makedirs(new_dir)
+        return new_dir
+    else:
+        print(f'Error: Invalid name for file{file_name}\n\n')
+        new_dir = ''
+        return new_dir
+
 # Function that check "HH" in file name
 def create_hh_subdirectory(file_name, words_in_filename):
     if 'hh' in words_in_filename[1].lower():
@@ -84,7 +111,7 @@ def create_hh_subdirectory(file_name, words_in_filename):
         return new_dir
 
 def create_mtnhh_subdirectory(file_name, words_in_filename):
-    if 'mtnhh' in words_in_filename[1].lower():
+    if 'mtnhh' in words_in_filename[1].lower() or 'mtn.hh' in words_in_filename[1].lower():
         reversed_dir = os.path.join(mtn_dir, f"Branch {int(numbers_in_file_name[1]):02d} MTN {int(numbers_in_file_name[2]):02d}" )
         if os.path.exists(reversed_dir):
             new_dir = reversed_dir
@@ -94,7 +121,7 @@ def create_mtnhh_subdirectory(file_name, words_in_filename):
             # If it doesn't exist, create the directory
             os.makedirs(new_dir)
         return new_dir
-    elif 'mtnhh' in words_in_filename[2].lower():
+    elif 'mtnhh' in words_in_filename[2].lower() or 'mtn.hh' in words_in_filename[2].lower():
         reversed_dir = os.path.join(mtn_dir, f"MTN {int(numbers_in_file_name[1]):02d} Branch {int(numbers_in_file_name[2]):02d}" )
         if os.path.exists(reversed_dir):
             new_dir = reversed_dir
@@ -154,7 +181,7 @@ for file_name in files:
                     new_dir = create_odc_subdirectory(file_name, words_in_filename)
                     if new_dir == '':
                         continue
-                elif 'mtnhh' in file_name.lower():
+                elif 'mtnhh' in file_name.lower() or 'mtn.hh' in file_name.lower():
                     new_dir = create_mtnhh_subdirectory(file_name, words_in_filename)
                     if new_dir == '':
                         continue
